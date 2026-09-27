@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prospera — Seu dinheiro crescendo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: #001C38;
+      color: #001C38;
+      -webkit-font-smoothing: antialiased;
+    }
+
+
+    ::-webkit-scrollbar { width: 0; height: 0; }
+
+
+    /* ── Tokens ── */
+    :root {
+      --navy:        #001C38;
+      --navy-card:   #00244a;
+      --navy-light:  rgba(255,255,255,0.05);
+      --gold:        #FFC800;
+      --neutral-100: #F9F8FA;
+      --neutral-200: #EDEDED;
+      --muted:       #6b7a8d;
+      --muted-navy:  #6b8aaa;
+      --green:       #00a85a;
+      --red:         #d4223a;
+      --blue:        #4db8ff;
+      --purple:      #a78bfa;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+      --radius-sm:   8px;
+      --radius:      12px;
+      --radius-lg:   16px;
+      --radius-xl:   20px;
+    }
+
+
+    /* ── Layout shell ── */
+    .app {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+
+    /* ════════════════════════
+       SIDEBAR
+    ════════════════════════ */
+    .sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      background: var(--navy);
+      border-right: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+
+    .sidebar__logo {
+      padding: 32px 24px 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+
+    .logo-name {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.3px;
+    }
+
+
+    .sidebar__nav {
+      flex: 1;
+      padding: 0 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      cursor: pointer;
+      background: none;
+      width: 100%;
+      text-align: left;
+      transition: background 0.15s, border-color 0.15s;
+      text-decoration: none;
+    }
+
+
+    .nav-item:hover {
+      background: rgba(255,200,0,0.05);
+    }
+
+
+    .nav-item.active {
+      background: rgba(255,200,0,0.1);
+      border-color: rgba(255,200,0,0.2);
+    }
+
+
+    .nav-item__label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted-navy);
+    }
+
+
+    .nav-item.active .nav-item__label {
+      color: var(--gold);
+    }
+
+
+    .sidebar__callout {
+      margin: 0 12px 16px;
+      border-radius: var(--radius);
+      padding: 14px;
+      background: rgba(255,200,0,0.08);
+      border: 1px solid rgba(255,200,0,0.15);
+    }
+
+
+    .callout__title {
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+
+    .callout__body {
+      color: var(--muted-navy);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+
+    .callout__body strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+
+    .sidebar__user {
+      margin: 0 12px 24px;
+      padding: 12px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+      flex-shrink: 0;
+    }
+
+
+    .user-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+
+    .user-plan {
+      font-size: 11px;
+      color: var(--muted-navy);
+    }
+
+
+    .user-logout {
+      margin-left: auto;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      color: var(--muted-navy);
+      transition: color 0.15s;
+      flex-shrink: 0;
+    }
+
+
+    .user-logout:hover { color: #fff; }
+
+
+    /* ════════════════════════
+       MAIN AREA
+    ════════════════════════ */
+    .main {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--neutral-100);
+      display: flex;
+      flex-direction: column;
+    }
+
+
+    /* ── Topbar ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: rgba(249,248,250,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,28,56,0.07);
+    }
+
+
+    .topbar__date {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+
+    .topbar__greeting {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+
+    .topbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+
+    .btn-icon {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+
+    .btn-icon:hover { background: var(--neutral-200); }
+
+
+    .btn-icon__dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      background: var(--navy);
+      color: var(--gold);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+
+
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-primary:active { transform: scale(0.98); }
+
+
+    /* ── Content area ── */
+    .content {
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+
+    /* ── KPI row ── */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+
+    .kpi-card {
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border: 1px solid rgba(0,28,56,0.06);
+    }
+
+
+    .kpi-card--navy  { background: var(--navy); border-color: rgba(255,255,255,0.06); }
+    .kpi-card--gold  { background: var(--gold); border-color: transparent; }
+    .kpi-card--light { background: #fff; }
+
+
+    .kpi-card__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+
+    .kpi-card__label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+
+    .kpi-card--navy  .kpi-card__label { color: var(--muted-navy); }
+    .kpi-card--gold  .kpi-card__label { color: rgba(0,28,56,0.55); }
+    .kpi-card--light .kpi-card__label { color: var(--muted); }
+
+
+    .kpi-card__toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted-navy);
+      display: flex;
+      transition: color 0.15s;
+    }
+
+
+    .kpi-card__toggle:hover { color: #fff; }
+
+
+    .kpi-card__value {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+
+    .kpi-card--navy  .kpi-card__value { color: #fff; }
+    .kpi-card--gold  .kpi-card__value { color: var(--navy); }
+    .kpi-card--light .kpi-card__value { color: var(--navy); }
+
+
+    .kpi-card__badge {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+
+    /* ── Middle row ── */
+    .middle-row {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 16px;
+    }
+
+
+    .card {
+      background: #fff;
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      border: 1px solid rgba(0,28,56,0.07);
+    }
+
+
+    .card__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+
+    .card__title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+
+    .card__link {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--navy);
+      opacity: 0.4;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+
+    .card__link:hover { opacity: 1; }
+
+
+    /* Goals */
+    .goals-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+
+    .goal-item { display: flex; flex-direction: column; gap: 8px; }
+
+
+    .goal-item__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+
+    .goal-item__name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+
+    .goal-item__pct {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--navy);
+    }
+
+
+    .goal-track {
+      height: 8px;
+      border-radius: 999px;
+      background: var(--neutral-200);
+      overflow: hidden;
+    }
+
+
+    .goal-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.7s ease;
+    }
+
+
+    .goal-item__amounts {
+      display: flex;
+      justify-content: space-between;
+    }
+
+
+    .goal-item__amt {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+
+    .btn-block {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: var(--radius);
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+
+
+    .btn-block:hover { opacity: 0.9; }
+    .btn-block:active { transform: scale(0.98); }
+
+
+    /* Transactions */
+    .tx-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+
+    .tx-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0,28,56,0.05);
+    }
+
+
+    .tx-item:last-child { border-bottom: none; }
+
+
+    .tx-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    .tx-icon--invest  { background: rgba(0,28,56,0.07); }
+    .tx-icon--income  { background: rgba(0,168,90,0.09); }
+    .tx-icon--expense { background: rgba(212,34,58,0.07); }
+
+
+    .tx-info { flex: 1; min-width: 0; }
+
+
+    .tx-desc {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+
+    .tx-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+
+    .tx-amount {
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+
+    .tx-amount--invest  { color: var(--navy); }
+    .tx-amount--income  { color: var(--green); }
+    .tx-amount--expense { color: var(--red); }
+
+
+    /* ── Bottom row ── */
+    .bottom-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+    }
+
+
+    .invest-card {
+      background: var(--navy);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+
+    .invest-card__title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+
+    .invest-card__sub {
+      font-size: 12px;
+      color: var(--muted-navy);
+      margin-bottom: 20px;
+    }
+
+
+    .invest-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+
+    .invest-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      transition: transform 0.15s;
+      cursor: pointer;
+    }
+
+
+    .invest-item:hover { transform: scale(1.02); }
+
+
+    .invest-item__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+
+    .invest-item__name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+
+    .invest-item__risk {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+    }
+
+
+    .invest-item__type {
+      font-size: 10px;
+      color: var(--muted-navy);
+      margin-bottom: 4px;
+    }
+
+
+    .invest-item__rate {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+
+    .btn-invest {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      padding: 7px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy);
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+
+    .btn-invest:hover { opacity: 0.85; }
+
+
+    /* Tip card */
+    .tip-card {
+      background: var(--gold);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+
+    .tip-card__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius);
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+
+    .tip-card__title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+
+    .tip-card__body {
+      font-size: 13px;
+      color: rgba(0,28,56,0.75);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+
+    .tip-card__body strong { color: var(--navy); font-weight: 700; }
+
+
+    .btn-tip {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: var(--radius);
+      background: var(--navy);
+      color: var(--gold);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+
+    .btn-tip:hover { opacity: 0.85; }
+
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .sidebar { width: 200px; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .middle-row { grid-template-columns: 1fr; }
+      .bottom-row { grid-template-columns: 1fr; }
+      .invest-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+
+    @media (max-width: 720px) {
+      .sidebar { display: none; }
+      .kpi-row { grid-template-columns: 1fr 1fr; }
+      .invest-grid { grid-template-columns: 1fr; }
+      .content { padding: 16px; }
+      .topbar { padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+
+<div class="app">
+
+
+  <!-- ════════ SIDEBAR ════════ -->
+  <aside class="sidebar">
+
+
+    <div class="sidebar__logo">
+      <div class="logo-icon">
+        <!-- Shield check icon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L4 5v7c0 5.25 3.5 10.1 8 11.35C16.5 22.1 20 17.25 20 12V5L12 2z" fill="#001C38"/>
+          <path d="M9 12l2 2 4-4" stroke="#FFC800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="logo-name">Prospera</span>
+    </div>
+
+
+    <nav class="sidebar__nav">
+      <a class="nav-item active" href="#">
+        <!-- Home icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" stroke="#FFC800" stroke-width="1.8" stroke-linejoin="round" fill="rgba(255,200,0,0.15)"/>
+          <path d="M9 21V12h6v9" stroke="#FFC800" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav-item__label">Painel</span>
+      </a>
+
+
+      <a class="nav-item" href="#">
+        <!-- Trend icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" stroke="#6b8aaa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="16 7 22 7 22 13" stroke="#6b8aaa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav-item__label">Investimentos</span>
+      </a>
+
+
+      <a class="nav-item" href="#">
+        <!-- Target icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="#6b8aaa" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="5" stroke="#6b8aaa" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="1.5" fill="#6b8aaa"/>
+        </svg>
+        <span class="nav-item__label">Metas</span>
+      </a>
+
+
+      <a class="nav-item" href="#">
+        <!-- List icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <line x1="8" y1="6" x2="21" y2="6" stroke="#6b8aaa" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="8" y1="12" x2="21" y2="12" stroke="#6b8aaa" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="8" y1="18" x2="21" y2="18" stroke="#6b8aaa" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="3.5" cy="6" r="1.5" fill="#6b8aaa"/>
+          <circle cx="3.5" cy="12" r="1.5" fill="#6b8aaa"/>
+          <circle cx="3.5" cy="18" r="1.5" fill="#6b8aaa"/>
+        </svg>
+        <span class="nav-item__label">Histórico</span>
+      </a>
+
+
+      <a class="nav-item" href="#">
+        <!-- Book icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="#6b8aaa" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="#6b8aaa" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav-item__label">Aprender</span>
+      </a>
+    </nav>
+
+
+    <!-- Anti-bet callout -->
+    <div class="sidebar__callout">
+      <p class="callout__title">Sabia que?</p>
+      <p class="callout__body">
+        R$ 10/dia investidos rendem mais de <strong>R$ 3.800</strong> em 1 ano — sem apostar nada.
+      </p>
+    </div>
+
+
+    <!-- User -->
+    <div class="sidebar__user">
+      <img
+        class="user-avatar"
+        src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&h=80&fit=crop&auto=format"
+        alt="Foto de perfil de Maria Silva"
+      />
+      <div style="min-width:0; flex:1">
+        <p class="user-name">Maria Silva</p>
+        <p class="user-plan">Conta Gratuita</p>
+      </div>
+      <button class="user-logout" title="Sair">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke="#6b8aaa" stroke-width="1.8" stroke-linecap="round"/>
+          <polyline points="16 17 21 12 16 7" stroke="#6b8aaa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="21" y1="12" x2="9" y2="12" stroke="#6b8aaa" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+
+  </aside>
+
+
+  <!-- ════════ MAIN ════════ -->
+  <main class="main">
+
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div>
+        <p class="topbar__date">Domingo, 31 de agosto de 2026</p>
+        <h1 class="topbar__greeting">Bom dia, Maria!</h1>
+      </div>
+      <div class="topbar__actions">
+        <button class="btn-icon" title="Notificações">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="#001C38" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="btn-icon__dot"></span>
+        </button>
+        <button class="btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <line x1="12" y1="5" x2="12" y2="19" stroke="#FFC800" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="5" y1="12" x2="19" y2="12" stroke="#FFC800" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          Adicionar dinheiro
+        </button>
+      </div>
+    </header>
+
+
+    <!-- Content -->
+    <div class="content">
+
+
+      <!-- KPI row -->
+      <div class="kpi-row">
+
+
+        <!-- Saldo total -->
+        <div class="kpi-card kpi-card--navy">
+          <div class="kpi-card__header">
+            <span class="kpi-card__label">Saldo Total</span>
+            <button class="kpi-card__toggle" id="toggleBalance" title="Mostrar/ocultar saldo">
+              <svg id="eyeIcon" width="15" height="15" viewBox="0 0 24 24" fill="none">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+            </button>
+          </div>
+          <p class="kpi-card__value" id="balanceValue">R$ 4.280,50</p>
+          <span class="kpi-card__badge" style="color:#00a85a; background:rgba(0,168,90,0.15)">
+            ↑ R$ 38,14 este mês
+          </span>
+        </div>
+
+
+        <!-- Investido -->
+        <div class="kpi-card kpi-card--gold">
+          <div class="kpi-card__header">
+            <span class="kpi-card__label">Investido</span>
+          </div>
+          <p class="kpi-card__value">R$ 2.400,00</p>
+          <span class="kpi-card__badge" style="color:#FFC800; background:rgba(0,28,56,0.1)">
+            3 ativos
+          </span>
+        </div>
+
+
+        <!-- Rendimento -->
+        <div class="kpi-card kpi-card--light">
+          <div class="kpi-card__header">
+            <span class="kpi-card__label">Rendimento Total</span>
+          </div>
+          <p class="kpi-card__value">R$ 112,40</p>
+          <span class="kpi-card__badge" style="color:#00a85a; background:rgba(0,168,90,0.1)">
+            +4,9% ao ano
+          </span>
+        </div>
+
+
+        <!-- Metas -->
+        <div class="kpi-card kpi-card--light">
+          <div class="kpi-card__header">
+            <span class="kpi-card__label">Metas Ativas</span>
+          </div>
+          <p class="kpi-card__value">3 metas</p>
+          <span class="kpi-card__badge" style="color:#001C38; background:rgba(0,28,56,0.08)">
+            61% concluída a maior
+          </span>
+        </div>
+
+
+      </div>
+
+
+      <!-- Middle row -->
+      <div class="middle-row">
+
+
+        <!-- Goals -->
+        <div class="card">
+          <div class="card__header">
+            <h2 class="card__title">Minhas Metas</h2>
+            <button class="card__link">Ver todas</button>
+          </div>
+
+
+          <div class="goals-list">
+
+
+            <div class="goal-item">
+              <div class="goal-item__row">
+                <span class="goal-item__name">Reserva de Emergência</span>
+                <span class="goal-item__pct" style="color:#FFC800">61%</span>
+              </div>
+              <div class="goal-track">
+                <div class="goal-fill" style="width:61%; background:#FFC800"></div>
+              </div>
+              <div class="goal-item__amounts">
+                <span class="goal-item__amt">R$ 1.840,00</span>
+                <span class="goal-item__amt">de R$ 3.000,00</span>
+              </div>
+            </div>
+
+
+            <div class="goal-item">
+              <div class="goal-item__row">
+                <span class="goal-item__name">Viagem de Férias</span>
+                <span class="goal-item__pct" style="color:#4db8ff">28%</span>
+              </div>
+              <div class="goal-track">
+                <div class="goal-fill" style="width:28%; background:#4db8ff"></div>
+              </div>
+              <div class="goal-item__amounts">
+                <span class="goal-item__amt">R$ 560,00</span>
+                <span class="goal-item__amt">de R$ 2.000,00</span>
+              </div>
+            </div>
+
+
+            <div class="goal-item">
+              <div class="goal-item__row">
+                <span class="goal-item__name">Novo Celular</span>
+                <span class="goal-item__pct" style="color:#a78bfa">40%</span>
+              </div>
+              <div class="goal-track">
+                <div class="goal-fill" style="width:40%; background:#a78bfa"></div>
+              </div>
+              <div class="goal-item__amounts">
+                <span class="goal-item__amt">R$ 320,00</span>
+                <span class="goal-item__amt">de R$ 800,00</span>
+              </div>
+            </div>
+
+
+          </div>
+
+
+          <button class="btn-block">+ Nova meta</button>
+        </div>
+
+
+        <!-- Transactions -->
+        <div class="card">
+          <div class="card__header">
+            <h2 class="card__title">Últimas Movimentações</h2>
+            <button class="card__link">Ver extrato completo</button>
+          </div>
+
+
+          <div class="tx-list">
+
+
+            <div class="tx-item">
+              <div class="tx-icon tx-icon--invest">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" stroke="#001C38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="16 7 22 7 22 13" stroke="#001C38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="tx-info">
+                <p class="tx-desc">Tesouro Selic</p>
+                <p class="tx-meta">Investimento · Hoje, 09:14</p>
+              </div>
+              <span class="tx-amount tx-amount--invest">+R$ 120,00</span>
+            </div>
+
+
+            <div class="tx-item">
+              <div class="tx-icon tx-icon--invest">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" stroke="#001C38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="16 7 22 7 22 13" stroke="#001C38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="tx-info">
+                <p class="tx-desc">CDB Banco Inter</p>
+                <p class="tx-meta">Investimento · Ontem, 18:32</p>
+              </div>
+              <span class="tx-amount tx-amount--invest">+R$ 80,00</span>
+            </div>
+
+
+            <div class="tx-item">
+              <div class="tx-icon tx-icon--income">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 19V5M5 12l7-7 7 7" stroke="#00a85a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="tx-info">
+                <p class="tx-desc">Pix Recebido — João</p>
+                <p class="tx-meta">Receita · 28 ago, 11:05</p>
+              </div>
+              <span class="tx-amount tx-amount--income">+R$ 250,00</span>
+            </div>
+
+
+            <div class="tx-item">
+              <div class="tx-icon tx-icon--expense">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 5v14M19 12l-7 7-7-7" stroke="#d4223a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="tx-info">
+                <p class="tx-desc">Conta de Luz — CPFL</p>
+                <p class="tx-meta">Conta fixa · 27 ago, 08:00</p>
+              </div>
+              <span class="tx-amount tx-amount--expense">−R$ 97,40</span>
+            </div>
+
+
+            <div class="tx-item">
+              <div class="tx-icon tx-icon--expense">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 5v14M19 12l-7 7-7-7" stroke="#d4223a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="tx-info">
+                <p class="tx-desc">Supermercado Dia</p>
+                <p class="tx-meta">Alimentação · 25 ago, 15:44</p>
+              </div>
+              <span class="tx-amount tx-amount--expense">−R$ 143,60</span>
+            </div>
+
+
+            <div class="tx-item">
+              <div class="tx-icon tx-icon--invest">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" stroke="#001C38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="16 7 22 7 22 13" stroke="#001C38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="tx-info">
+                <p class="tx-desc">LCI Bradesco</p>
+                <p class="tx-meta">Investimento · 23 ago, 10:00</p>
+              </div>
+              <span class="tx-amount tx-amount--invest">+R$ 200,00</span>
+            </div>
+
+
+            <div class="tx-item">
+              <div class="tx-icon tx-icon--expense">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 5v14M19 12l-7 7-7-7" stroke="#d4223a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="tx-info">
+                <p class="tx-desc">Farmácia Popular</p>
+                <p class="tx-meta">Saúde · 22 ago, 14:20</p>
+              </div>
+              <span class="tx-amount tx-amount--expense">−R$ 34,50</span>
+            </div>
+
+
+          </div>
+        </div>
+
+
+      </div>
+
+
+      <!-- Bottom row -->
+      <div class="bottom-row">
+
+
+        <!-- Investment products -->
+        <div class="invest-card">
+          <h2 class="invest-card__title">Investimentos disponíveis</h2>
+          <p class="invest-card__sub">Escolha onde colocar seu dinheiro hoje</p>
+
+
+          <div class="invest-grid">
+
+
+            <div class="invest-item">
+              <div class="invest-item__top">
+                <span class="invest-item__name">Tesouro Selic</span>
+                <span class="invest-item__risk" style="color:#FFC800">Baixo</span>
+              </div>
+              <p class="invest-item__type">Renda Fixa</p>
+              <p class="invest-item__rate" style="color:#FFC800">13,25% a.a.</p>
+              <button class="btn-invest" style="background:#FFC800">Investir agora</button>
+            </div>
+
+
+            <div class="invest-item">
+              <div class="invest-item__top">
+                <span class="invest-item__name">CDB 120% CDI</span>
+                <span class="invest-item__risk" style="color:#4db8ff">Baixo</span>
+              </div>
+              <p class="invest-item__type">Renda Fixa</p>
+              <p class="invest-item__rate" style="color:#4db8ff">12,80% a.a.</p>
+              <button class="btn-invest" style="background:#4db8ff">Investir agora</button>
+            </div>
+
+
+            <div class="invest-item">
+              <div class="invest-item__top">
+                <span class="invest-item__name">Fundo Renda+</span>
+                <span class="invest-item__risk" style="color:#a78bfa">Médio</span>
+              </div>
+              <p class="invest-item__type">Renda Variável</p>
+              <p class="invest-item__rate" style="color:#a78bfa">15,4% a.a.*</p>
+              <button class="btn-invest" style="background:#a78bfa">Investir agora</button>
+            </div>
+
+
+          </div>
+        </div>
+
+
+        <!-- Tip card -->
+        <div class="tip-card">
+          <div class="tip-card__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M9 21h6M12 3a6 6 0 016 6c0 2.22-1.2 4.16-3 5.2V17H9v-2.8A6 6 0 016 9a6 6 0 016-6z" stroke="#FFC800" stroke-width="1.8" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="tip-card__title">Dica da semana</h3>
+          <p class="tip-card__body">
+            A regra 50-30-20 divide sua renda em <strong>50% necessidades</strong>, 30% desejos e <strong>20% investimentos</strong>. Pequenos ajustes mudam tudo.
+          </p>
+          <button class="btn-tip">Ver mais dicas</button>
+        </div>
+
+
+      </div>
+
+
+    </div><!-- /content -->
+  </main>
+
+
+</div><!-- /app -->
+
+
+<script>
+  // Toggle balance visibility
+  const toggleBtn = document.getElementById('toggleBalance');
+  const balanceEl = document.getElementById('balanceValue');
+  const eyeIcon   = document.getElementById('eyeIcon');
+  let hidden = false;
+
+
+  const eyeOpen = `
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.8"/>
+    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+  `;
+  const eyeClosed = `
+    <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  `;
+
+
+  toggleBtn.addEventListener('click', () => {
+    hidden = !hidden;
+    balanceEl.textContent = hidden ? 'R$ ••••••' : 'R$ 4.280,50';
+    eyeIcon.innerHTML = hidden ? eyeClosed : eyeOpen;
+  });
+
+
+  // Active nav highlight
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      item.classList.add('active');
+      // Swap icon colors
+      document.querySelectorAll('.nav-item svg [stroke]').forEach(el => {
+        el.setAttribute('stroke', '#6b8aaa');
+      });
+    });
+  });
+</script>
+
+
+</body>
+</html>
+
+
